@@ -1,7 +1,5 @@
 var hg = require('mercury');
 var h = require('mercury').h;
-var jscolordeps = require('colorpickerdeps');
-var jscolor = require('colorpicker');
 
 var Gradient = require('./gradient.js');
 
