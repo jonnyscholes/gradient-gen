@@ -10,7 +10,7 @@ function Stop(item) {
 	item = item || {};
 	return hg.state({
 		color: hg.value(item.color || 'rgba(0,0,0,0.5)'),
-		size: hg.value(item.size || ''),
+		size: hg.value(item.size || '10%'),
 		channels: {
 			editColor: function (state, data) {
 				if(data.color) {
