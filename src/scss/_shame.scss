@@ -137,6 +137,18 @@ a {
 	}
 }
 
+.css {
+	display: none;
+	width: 100%;
+	padding: 10px;
+}
+
+.show-clipboard {
+	.css {
+		display: block;
+	}
+}
+
 .cp-app {
 	top: 50% !important;
 	left: 50% !important;

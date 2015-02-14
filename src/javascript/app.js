@@ -7,9 +7,11 @@ function GradientApp() {
 	return hg.state({
 		gradients: hg.varhash([]),
 		isHidden: hg.value(false),
+		isClipboardMode: hg.value(false),
 		channels: {
 			addGradient: GradientApp.addGradient,
-			toggle: GradientApp.toggle
+			toggleVisibility: GradientApp.toggleVisibility,
+			toggleClipboard: GradientApp.toggleClipboard
 		}
 	});
 }
@@ -33,8 +35,12 @@ GradientApp.addGradient = function (state) {
 	}
 };
 
-GradientApp.toggle = function (state) {
+GradientApp.toggleVisibility = function (state) {
 	state.isHidden.set(!state.isHidden());
+};
+
+GradientApp.toggleClipboard = function (state) {
+	state.isClipboardMode.set(!state.isClipboardMode());
 };
 
 GradientApp.render = function render(state) {
@@ -43,7 +49,11 @@ GradientApp.render = function render(state) {
 	var rootClasses = '';
 
 	if (state.isHidden) {
-		rootClasses += 'is-hidden';
+		rootClasses += ' is-hidden';
+	}
+
+	if (state.isClipboardMode) {
+		rootClasses += ' show-clipboard';
 	}
 
 	return h('div', {className: 'page ' + rootClasses}, [
@@ -56,12 +66,17 @@ GradientApp.render = function render(state) {
 				h('a', {
 					className: state.isHidden ? 'icon-hide' : 'icon-show',
 					href: '#',
-					'ev-click': hg.send(state.channels.toggle)
+					'ev-click': hg.send(state.channels.toggleVisibility)
+				}),
+				h('a.icon-subtract', {
+					href: '#',
+					'ev-click': hg.send(state.channels.toggleClipboard)
 				})
 			]),
 			h('div.editors', gradientList.map(function renderGradientSingle(gradient) {
 				return Gradient.render(gradient);
-			}))
+			})),
+			h('textarea.css', {readOnly: true, value: gradientString})
 		]),
 		h('div.gradient', {
 			'style': {
@@ -70,6 +85,11 @@ GradientApp.render = function render(state) {
 		})
 	]);
 };
+
+
+
+
+
 
 function cssifyGradient(gradient) {
 	return gradient.type === 'linear' ? buildLinearGradient(gradient.stops) : buildRadialGradient(gradient.stops);
