@@ -85,7 +85,7 @@ function buildRadialGradient(stops) {
 
 function buildLinearGradient(stops) {
 	return 'linear-gradient( to right,' + stops.map(function (o) {
-			return o.color;
+			return o.color + ' ' + o.size;
 		}).join(',') + ')';
 }
 

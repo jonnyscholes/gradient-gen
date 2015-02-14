@@ -7,10 +7,16 @@ function Stop(item) {
 	item = item || {};
 	return hg.state({
 		color: hg.value(item.color || 'rgba(0,0,0,0.5)'),
+		size: hg.value(item.size || 'auto'),
 		channels: {
-			finishEdit: function (state, data) {
+			editColor: function (state, data) {
 				if(data.color) {
 					state.color.set(data.color);
+				}
+			},
+			editSize: function (state, data) {
+				if(data.size) {
+					state.size.set(data.size);
 				}
 			}
 		}
@@ -19,7 +25,7 @@ function Stop(item) {
 
 Stop.render = function(stop) {
 	return h('li.stops--single', [
-		h('input.colorpicker', {
+		h('input.stops--color.colorpicker', {
 			value: stop.color,
 			name: 'color',
 			'ev-focus': function(){
@@ -29,8 +35,14 @@ Stop.render = function(stop) {
 					readOnly: true
 				});
 			},
-			'ev-event': hg.sendSubmit(stop.channels.finishEdit),
-			'ev-blur': hg.sendValue(stop.channels.finishEdit)
+			'ev-event': hg.sendSubmit(stop.channels.editColor),
+			'ev-blur': hg.sendValue(stop.channels.editColor)
+		}),
+		h('input.stops--size', {
+			value: stop.size,
+			name: 'size',
+			'ev-event': hg.sendSubmit(stop.channels.editSize),
+			'ev-blur': hg.sendValue(stop.channels.editSize)
 		})
 	]);
 };
