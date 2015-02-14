@@ -16,6 +16,10 @@ probably (hopefully) valid.
 via: http://csswizardry.com/2013/04/shame-css/
 
 ------------------------------------------------------------------------------------------------ */
+* {
+	box-sizing: border-box;
+}
+
 
 html,
 body {
@@ -29,9 +33,9 @@ body {
 	position: absolute;
 	z-index: 100;
 	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 20%;
+	left: 0;
+	transform: translateY(-50%);
+	width: 100%;
 
 	&--menu {
 		width: 100%;
@@ -51,11 +55,8 @@ body {
 	transition: all 300ms ease-in-out;
 	padding: 1rem;
 	background: rgba(black, 0.3);
-	border-radius: 3px;
 	color: white;
 	margin-top: 1rem;
-
-
 
 	&.is-target {
 		transform: scale(0.9);
@@ -89,16 +90,51 @@ body {
 		list-style: none;
 		padding: 0;
 		margin: 0;
+		overflow: hidden;
 		&--single {
+			padding: 2px;
+			width: 20%;
+			float: left;
+			background: rgba(black, 0.3);
 			position: relative;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			margin-right: 10px;
 			.colorpicker {
-				width: 100%;
+				display: inline-block;
+			}
+			input {
+				padding: 5px 5px 3px 5px;
+				border: 0 none;
+				margin-right: 2px;
+				&:last-child {
+					margin-right: 0;
+				}
 			}
 		}
+			&--color,
+			&--size {
+
+			}
+			&--color {
+				width: 50%;
+			}
+			&--size {
+				width: 30%;
+			}
 	}
 
 a {
 	text-decoration: none;
+}
+
+.icon-add,
+.icon-close {
+	display: inline-block;
+	&:before {
+		display: block;
+	}
 }
 
 .cp-app {

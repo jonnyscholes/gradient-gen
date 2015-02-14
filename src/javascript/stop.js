@@ -10,7 +10,7 @@ function Stop(item) {
 	item = item || {};
 	return hg.state({
 		color: hg.value(item.color || 'rgba(0,0,0,0.5)'),
-		size: hg.value(item.size || 'auto'),
+		size: hg.value(item.size || ''),
 		channels: {
 			editColor: function (state, data) {
 				if(data.color) {
@@ -46,6 +46,9 @@ Stop.render = function(stop) {
 			name: 'size',
 			'ev-event': hg.sendSubmit(stop.channels.editSize),
 			'ev-blur': hg.sendValue(stop.channels.editSize)
+		}),
+		h('a.icon-close', {
+			href: '#'
 		})
 	]);
 };
