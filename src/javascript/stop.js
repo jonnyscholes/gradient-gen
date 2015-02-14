@@ -1,6 +1,9 @@
 var hg = require('mercury');
 var h = require('mercury').h;
 
+var jscolordeps = require('colorpickerdeps');
+var jscolor = require('colorpicker');
+
 module.exports = Stop;
 
 function Stop(item) {
